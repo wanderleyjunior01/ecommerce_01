@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Bootstrap E-Commerce Template- DIGI Shop mini</title>
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet">
+    <!-- Fontawesome core CSS -->
+    <link href="../static/css/font-awesome.min.css" rel="stylesheet" />
+    <!--GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!--Slide Show Css -->
+    <link href="../static/assets/ItemSlider/css/main-style.css" rel="stylesheet" />
+    <!-- custom CSS here -->
+    <link href="../static/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{url_for('home')}}"><strong>DIGI</strong> Shop</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{url_for('secret_page')}}">Track Order</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{{url_for('logout')}}">Logout</a></li>
+                    <li><a href="{{url_for('home')}}">Devoluções</a></li>
+                    {% else %}
+                    <li><a href="{{url_for('login')}}">Login</a></li>
+                    <li><a href="{{url_for('signup')}}">Signup</a></li>
+                    {% endif %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><strong>Call: </strong>+09-456-567-890</a></li>
+                            <li><a href="#"><strong>Mail: </strong>info@yourdomain.com</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><strong>Address: </strong>
+                                <div>
+                                    234, New york Street,<br />
+                                    Just Location, USA
+                                </div>
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
+                    </div>
+                    &nbsp; 
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    
+    <body>
+        
+        <div class="container">
+            <h2>List of Products on Site</h2>
+            <table class="table">
+                <thead>
+                    <td>Product Name</td>
+                    <td>SKU</td>
+                    <td>Stock Availability</td>
+                    <td>Current Price</td>
+                    <td>Original Price</td>
+                </thead>
+                <tbody>
+            {% for product in products %}
+            <tr>
+            <td> {{ product.name }} </td> 
+            <td> {{ product.sku }} </td>
+            <td> {{ product.stock_qty }} </td>
+            <td> {{ product.price }} </td>
+            <td> {{ product.original_price }} </td>
+            <td> <button type="button" class="btn btn-primary edit-form" id="prod-id {{product.id}}" data-toggle="modal" data-target="#modalEditProduct">
+                Edit
+              </button></td>
+            <td> <button class="btn btn-danger btnDel">Delete</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+
+        <!--Section: Block Content-->
+<section>
+
+ 
+    <!-- Modal -->
+    <div class="modal fade" id="modalEditProduct" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header py-4">
+            <h5 class="modal-title mx-auto">Write to us</h5>
+            <button type="button" class="close p-0 m-0" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form md-outline">
+              <i class="fas fa-user prefix"></i>
+              <input type="text" id="contactForm-name1" class="form-control">
+              <label for="contactForm-name1">Your name</label>
+            </div>
+            <div class="md-form md-outline">
+              <i class="fas fa-envelope prefix"></i>
+              <input type="email" id="contactForm-email1" class="form-control">
+              <label for="contactForm-email1">Your email</label>
+            </div>
+            <div class="md-form md-outline">
+              <i class="fas fa-tag prefix"></i>
+              <input type="text" id="contact321" class="form-control">
+              <label for="contact321">Subject</label>
+            </div>
+            <div class="md-form md-outline">
+              <i class="fas fa-pencil-alt prefix"></i>
+              <textarea type="text" id="contact81" class="md-textarea form-control" rows="4"></textarea>
+              <label for="contact81">Your message</label>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center py-4">
+            <button class="btn btn-primary">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </section>
+  <!--Section: Block Content-->
+            
+
+
+        <!--Core JavaScript file  -->
+        <script src="../static/script/js/jquery-1.10.2.js"></script>
+        <!--bootstrap JavaScript file  -->
+        <script src="../static/script/js/bootstrap.js"></script>
+        <!--Slider JavaScript file  -->
+        <script> src="../static/assets/ItemSlider/js/javascript.js"></script>
+        <script src="../static/assets/ItemSlider/js/modernizr.custom.63321.js"></script>
+        <script src="../static/assets/ItemSlider/js/jquery.catslider.js"></script>
+        <script>
+            $(function () {
+    
+                $('#mi-slider').catslider();
+    
+            });
+            </script>
+    </body>
+    </html>
